@@ -1,5 +1,10 @@
 <template>
   <main>
+    <div class="monika" />
+    <audio id="monika-music">
+      <source src="@/assets/musics/monika-theme.webm" type="video/webm">
+    </audio>
+
     <HeroBlock class="has-text-centered" color-class="is-dark">
       <div class="container">
         <div class="columns is-centered is-vcentered">
@@ -26,6 +31,16 @@
         >
           En savoir plus
         </b-button>
+
+        <b-button
+          class="about-button"
+          icon-left="arrow-up"
+          type="is-danger"
+          outlined
+          @click="rickroll"
+        >
+          En savoir moins
+        </b-button>
       </div>
     </HeroBlock>
 
@@ -41,7 +56,7 @@
         <div class="columns is-centered">
           <div v-for="(text, index) of $t('home.about.cards')" :key="text" class="column is-3">
             <div class="card">
-              <img v-if="index === randomCardEgg" class="egg" src="@/assets/images/egg.png">
+              <img v-if="index === 2" class="egg" src="@/assets/images/egg.png">
               <div class="card-content">
                 <div class="content">
                   {{ text }}
@@ -67,7 +82,7 @@ export default {
 
   data() {
     return {
-      randomCardEgg: Math.floor(Math.random() * this.$t('home.about.cards').length),
+      currentWord: '',
     };
   },
 
@@ -76,11 +91,71 @@ export default {
       title: this.$t('home.title'),
     };
   },
+
+  mounted() {
+    if (document) document.addEventListener('keydown', this.onKeydown);
+  },
+
+  destroyed() {
+    if (document) document.removeEventListener('keydown', this.onKeydown);
+  },
+
+  methods: {
+    rickroll() {
+      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1&t=0';
+    },
+
+    onKeydown(event) {
+      const WORD_KEY = 'MONIKA'.toLowerCase();
+      const pressedKey = event.key;
+
+      if (/[a-zA-Z]/g.test(pressedKey)) {
+        this.currentWord += pressedKey.toLowerCase();
+
+        if (!WORD_KEY.includes(this.currentWord)) {
+          this.currentWord = '';
+        } else if (WORD_KEY === this.currentWord) {
+          document.removeEventListener('keydown', this.onKeydown);
+
+          const monikaBg = document.querySelector('.monika');
+          const monikaMusic = document.querySelector('#monika-music');
+
+          monikaBg.style.zIndex = '9999';
+
+          monikaMusic.volume = 0.1;
+          monikaMusic.currentTime = 0;
+          monikaMusic.play();
+
+          let opacity = 0;
+          const opacityTimer = setInterval(() => {
+            opacity += 0.005;
+            monikaBg.style.opacity = opacity;
+
+            if (opacity >= 1) clearInterval(opacityTimer);
+          }, 200);
+        }
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
   @import '@/assets/scss/main.scss';
+
+  .monika {
+    opacity: 0;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('@/assets/images/monika.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
   .card {
     height: 100%;

@@ -5,6 +5,11 @@ $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 
+$danger: #e74c3c;
+$danger-light: findLightColor($primary);
+$danger-dark: findDarkColor($primary);
+$danger-invert: findColorInvert($primary);
+
 $custom-colors: null !default;
 $custom-shades: null !default;
 

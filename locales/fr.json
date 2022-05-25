@@ -1,5 +1,14 @@
 {
   "home": {
-    "title": "Accueil"
+    "title": "Accueil",
+    "about": {
+      "title": "A Propos",
+      "subtitle": "Qui suis-je ?",
+      "cards": [
+        "Sylvain alias arch, 20 ans, Développeur web et logiciel",
+        "Passionné par le développement web et le logiciel",
+        "Freelance depuis 2022"
+      ]
+    }
   }
 }

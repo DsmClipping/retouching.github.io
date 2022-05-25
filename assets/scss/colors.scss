@@ -69,3 +69,11 @@ $colors: mergeColorMaps(
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+
+a.nuxt-link-active {
+  @extend .is-active;
+}
+
+a.nuxt-link-exact-active {
+  @extend .is-active;
+}

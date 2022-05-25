@@ -1,12 +1,13 @@
 @import "@/assets/scss/colors.scss";
 @import "@/assets/scss/fonts.scss";
 
-a.nuxt-link-active {
-  @extend .is-active !optional;
+html, body {
+  overflow: auto !important;
+  scroll-behavior: smooth !important;
 }
 
-a.nuxt-link-exact-active {
-  @extend .is-active !optional;
+a, button, input, select, textarea {
+  transition: 0.3s;
 }
 
 @import "~bulma";

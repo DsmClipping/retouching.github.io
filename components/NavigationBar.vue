@@ -2,10 +2,10 @@
   <nav class="navbar">
     <div class="container">
       <div class="navbar-brand">
-        <a class="navbar-item">
+        <nuxt-link to="/" class="navbar-item">
           <img class="navbar-icon" src="@/assets/images/profile.jpg">
           <span>Sylvain | Portfolio</span>
-        </a>
+        </nuxt-link>
         <span
           class="navbar-burger"
           :aria-expanded="isActive"
@@ -46,23 +46,33 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .navbar-burger {
-    color: #fff;
-  }
+  @import '@/assets/scss/main.scss';
 
-  .navbar-menu {
-    .navbar-item .icon {
-    margin-right: 0.5rem;
+  .navbar {
+    background-color: $black-ter !important;
+
+    .navbar-burger {
+      color: #fff;
     }
-  }
 
-  .navbar-brand .navbar-item {
-    img.navbar-icon {
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 0.5rem;
+    .navbar-menu {
+      background-color: $black-ter !important;
+
+      .navbar-item .icon {
+        margin-right: 0.5rem;
+      }
+    }
+
+    .navbar-brand .navbar-item {
+      background-color: $black-ter !important;
+
+      img.navbar-icon {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 0.5rem;
+      }
     }
   }
 </style>

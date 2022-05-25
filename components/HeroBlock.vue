@@ -10,8 +10,14 @@
 </template>
 
 <script>
+import NavigationBar from './NavigationBar.vue';
+
 export default {
   name: 'HeroBlock',
+
+  components: {
+    NavigationBar,
+  },
 
   props: {
     colorClass: {

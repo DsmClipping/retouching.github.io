@@ -267,12 +267,14 @@ export default {
     if (document) {
       this.skillShow('langs', false);
       document.addEventListener('scroll', this.onScroll);
+      document.removeEventListener('keydown', this.onKeydown);
     }
   },
 
   destroyed() {
     if (document) {
       document.removeEventListener('scroll', this.onScroll);
+      document.removeEventListener('keydown', this.onKeydown);
     }
   },
 

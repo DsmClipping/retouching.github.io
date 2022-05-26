@@ -15,12 +15,21 @@
 </template>
 
 <script>
+/* eslint-disable global-require */
+/* eslint-disable import/no-unresolved */
+
+import fscreen from 'fscreen';
+
 export default {
   name: 'DefaultLayout',
 
   data() {
     return {
       currentWord: '',
+      monikaLock: false,
+      monikaBgInterval: null,
+      monikaBg: require('~/assets/images/monika.png'),
+      monikaScareImg: require('~/assets/images/monika-scare.webp'),
     };
   },
 
@@ -28,6 +37,10 @@ export default {
     if (window) {
       window.addEventListener('scroll', this.onScroll);
       window.addEventListener('keydown', this.onKeydown);
+
+      if (fscreen.fullscreenEnabled) {
+        fscreen.addEventListener('fullscreenchange', this.onFullscreenChange, false);
+      }
     }
   },
 
@@ -35,6 +48,10 @@ export default {
     if (window) {
       window.removeEventListener('keydown', this.onKeydown);
       window.removeEventListener('scroll', this.onScroll);
+
+      if (fscreen.fullscreenEnabled) {
+        fscreen.removeEventListener('fullscreenchange', this.onFullscreenChange, false);
+      }
     }
   },
 
@@ -53,6 +70,27 @@ export default {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     },
 
+    onFullscreenChange() {
+      if (this.monikaLock && !fscreen.fullscreenElement) {
+        this.monikaLock = false;
+
+        if (this.monikaBgInterval) {
+          clearInterval(this.monikaBgInterval);
+          this.monikaBgInterval = null;
+        }
+
+        ['body', 'html'].forEach((itemName) => {
+          document.querySelector(itemName).style = '';
+        });
+
+        const monikaBg = document.querySelector('.monika');
+        const monikaMusic = document.querySelector('#monika-music');
+
+        monikaBg.style = '';
+        monikaMusic.pause();
+      }
+    },
+
     onKeydown(event) {
       const WORD_KEY = 'MONIKA'.toLowerCase();
       const pressedKey = event.key;
@@ -63,7 +101,18 @@ export default {
         if (!WORD_KEY.includes(this.currentWord)) {
           this.currentWord = '';
         } else if (WORD_KEY === this.currentWord) {
-          document.removeEventListener('keydown', this.onKeydown);
+          this.currentWord = '';
+          this.monikaLock = true;
+
+          const html = document.documentElement;
+
+          if (html.requestFullscreen) {
+            html.requestFullscreen();
+          } else if (html.webkitRequestFullscreen) {
+            html.webkitRequestFullscreen();
+          } else if (html.msRequestFullscreen) {
+            html.msRequestFullscreen();
+          }
 
           const monikaBg = document.querySelector('.monika');
           const monikaMusic = document.querySelector('#monika-music');
@@ -79,11 +128,24 @@ export default {
           monikaMusic.play();
 
           let opacity = 0;
-          const opacityTimer = setInterval(() => {
+          this.monikaBgInterval = setInterval(() => {
             opacity += 0.005;
             monikaBg.style.opacity = opacity;
 
-            if (opacity >= 1) clearInterval(opacityTimer);
+            const popMonikaScare = Math.random() > 0.6;
+
+            if (popMonikaScare) {
+              monikaBg.style.backgroundImage = `url(${this.monikaScareImg})`;
+
+              setTimeout(() => {
+                monikaBg.style.backgroundImage = `url(${this.monikaBg})`;
+              }, 100);
+            }
+
+            if (opacity >= 1) {
+              clearInterval(this.monikaBgInterval);
+              this.monikaBgInterval = null;
+            }
           }, 200);
         }
       }
@@ -101,7 +163,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('@/assets/images/monika.jpg');
+    background-image: url('@/assets/images/monika.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

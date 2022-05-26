@@ -2,17 +2,13 @@
 @import "@/assets/scss/fonts.scss";
 
 html, body {
+  z-index: -1;
   overflow: auto !important;
   scroll-behavior: smooth !important;
-  background-color: $black-ter;
 }
 
 a, button, input, select, textarea {
   transition: 0.3s;
-}
-
-section.section {
-  background-color: $light;
 }
 
 $toast-border-radius: 4px !important;

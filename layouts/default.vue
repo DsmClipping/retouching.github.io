@@ -2,7 +2,7 @@
   <div>
     <div class="monika" />
     <audio id="monika-music">
-      <source src="@/assets/musics/monika-theme.webm" type="video/webm">
+      <source src="@/assets/musics/sayo-nara.webm" type="video/webm">
     </audio>
     <Nuxt />
     <b-button

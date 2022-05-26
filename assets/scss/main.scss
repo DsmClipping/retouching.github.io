@@ -11,6 +11,7 @@ a, button, input, select, textarea {
 }
 
 $toast-border-radius: 4px !important;
+$card-radius: 4px !important;
 
 @import "~bulma";
 @import '~bulma-ribbon/src/sass/index.sass';

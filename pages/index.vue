@@ -59,7 +59,14 @@
               <img v-if="index === 2" class="egg" src="@/assets/images/egg.png">
               <div class="card-content">
                 <div class="content">
-                  {{ text }}
+                  {{
+                    text.replace(
+                      ':age:',
+                      new Date(
+                        Date.now() - new Date('2001-08-01').getTime()
+                      ).getFullYear() - new Date(0).getFullYear()
+                    )
+                  }}
                 </div>
               </div>
             </div>
@@ -107,9 +114,9 @@
             <div class="card has-ribbon is-small">
               <div class="card-content">
                 <div class="content">
-                  <div class="ribbon is-small is-primary">
+                  <!--div class="ribbon is-small is-primary">
                     {{ $t(`home.skills.type.${skill.group}`) }}
-                  </div>
+                  </div-->
                   <img alt="skill" :src="skill.image">
                 </div>
               </div>
@@ -258,7 +265,7 @@ export default {
 
   mounted() {
     if (document) {
-      this.skillShow('langs');
+      this.skillShow('langs', false);
       document.addEventListener('scroll', this.onScroll);
     }
   },
@@ -270,7 +277,7 @@ export default {
   },
 
   methods: {
-    skillShow(skillActiveId) {
+    skillShow(skillActiveId, scroll = true) {
       document.querySelectorAll('#skills .tabs ul li a').forEach((elem) => {
         if (elem.id === skillActiveId) {
           elem.parentNode.classList.add('is-active');
@@ -287,10 +294,12 @@ export default {
         }
       });
 
-      document.querySelector('#skills').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
+      if (scroll) {
+        document.querySelector('#skills').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
     },
 
     onSkillClick(event) {
@@ -395,7 +404,9 @@ export default {
     h2.subtitle {
       color: $black-ter;
     }
+  }
 
+  #skills {
     img {
       height: auto;
       width: 80px;

@@ -1,10 +1,5 @@
 <template>
   <div>
-    <div class="monika" />
-    <audio id="monika-music">
-      <source src="@/assets/musics/monika-theme.webm" type="video/webm">
-    </audio>
-
     <HeroBlock class="has-text-centered" color-class="is-dark">
       <div class="container">
         <div class="columns is-centered is-vcentered">
@@ -264,18 +259,7 @@ export default {
   },
 
   mounted() {
-    if (document) {
-      this.skillShow('langs', false);
-      document.addEventListener('scroll', this.onScroll);
-      document.addEventListener('keydown', this.onKeydown);
-    }
-  },
-
-  destroyed() {
-    if (document) {
-      document.removeEventListener('scroll', this.onScroll);
-      document.removeEventListener('keydown', this.onKeydown);
-    }
+    this.skillShow('langs', false);
   },
 
   methods: {
@@ -319,38 +303,6 @@ export default {
         `,
         type: 'is-danger',
       });
-    },
-
-    onKeydown(event) {
-      const WORD_KEY = 'MONIKA'.toLowerCase();
-      const pressedKey = event.key;
-
-      if (/[a-zA-Z]/g.test(pressedKey)) {
-        this.currentWord += pressedKey.toLowerCase();
-
-        if (!WORD_KEY.includes(this.currentWord)) {
-          this.currentWord = '';
-        } else if (WORD_KEY === this.currentWord) {
-          document.removeEventListener('keydown', this.onKeydown);
-
-          const monikaBg = document.querySelector('.monika');
-          const monikaMusic = document.querySelector('#monika-music');
-
-          monikaBg.style.zIndex = '9999';
-
-          monikaMusic.volume = 0.1;
-          monikaMusic.currentTime = 0;
-          monikaMusic.play();
-
-          let opacity = 0;
-          const opacityTimer = setInterval(() => {
-            opacity += 0.005;
-            monikaBg.style.opacity = opacity;
-
-            if (opacity >= 1) clearInterval(opacityTimer);
-          }, 200);
-        }
-      }
     },
   },
 };

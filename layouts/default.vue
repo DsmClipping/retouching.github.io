@@ -18,17 +18,23 @@
 export default {
   name: 'DefaultLayout',
 
+  data() {
+    return {
+      currentWord: '',
+    };
+  },
+
   mounted() {
-    if (document) {
-      document.addEventListener('scroll', this.onScroll);
-      document.addEventListener('keydown', this.onKeydown);
+    if (window) {
+      window.addEventListener('scroll', this.onScroll);
+      window.addEventListener('keydown', this.onKeydown);
     }
   },
 
   destroyed() {
-    if (document) {
-      document.removeEventListener('keydown', this.onKeydown);
-      document.removeEventListener('scroll', this.onScroll);
+    if (window) {
+      window.removeEventListener('keydown', this.onKeydown);
+      window.removeEventListener('scroll', this.onScroll);
     }
   },
 
@@ -48,6 +54,8 @@ export default {
     },
 
     onKeydown(event) {
+      console.log(event.key, this.currentWord);
+
       const WORD_KEY = 'MONIKA'.toLowerCase();
       const pressedKey = event.key;
 

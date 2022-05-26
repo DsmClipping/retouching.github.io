@@ -138,7 +138,6 @@ export default {
 
   data() {
     return {
-      currentWord: '',
       skills: [
         {
           image: require('~/assets/images/skills/html-css.webp'),

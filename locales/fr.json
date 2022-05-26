@@ -1,6 +1,9 @@
 {
   "home": {
     "title": "Accueil",
+    "getCV": "Télécharger mon CV",
+    "getMore": "En savoir plus",
+
     "about": {
       "title": "A Propos",
       "subtitle": "Qui suis-je ?",
@@ -9,6 +12,17 @@
         "Passionné par le développement et les nouvelles technologies",
         "Officiellement en freelance depuis 2022"
       ]
+    },
+
+    "skills": {
+      "title": "Compétences",
+      "subtitle": "Quelles sont mes compétences ?",
+      "type": {
+        "langs": "Langages",
+        "frameworks": "Frameworks",
+        "techs": "Technologies",
+        "softs": "Logiciels"
+      }
     }
   }
 }

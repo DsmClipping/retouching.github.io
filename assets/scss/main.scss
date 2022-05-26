@@ -10,5 +10,8 @@ a, button, input, select, textarea {
   transition: 0.3s;
 }
 
+$toast-border-radius: 4px !important;
+
 @import "~bulma";
+@import '~bulma-ribbon/src/sass/index.sass';
 @import "~buefy/src/scss/buefy";

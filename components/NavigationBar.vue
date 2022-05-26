@@ -23,9 +23,7 @@
       <div id="collapse" :class="{ 'is-active': isActive }" class="navbar-menu">
         <div class="navbar-end">
           <nuxt-link to="/" class="navbar-item">
-            <span class="icon">
-              <font-awesome-icon :icon="['fas', 'home']" />
-            </span>
+            <b-icon icon="home" />
             <span>Accueil</span>
           </nuxt-link>
         </div>
@@ -41,6 +39,30 @@ export default {
       isActive: false,
       showNavbar: true,
     };
+  },
+
+  mounted() {
+    if (document) {
+      document.addEventListener('scroll', this.onScroll);
+    }
+  },
+
+  destroyed() {
+    if (document) {
+      document.removeEventListener('scroll', this.onScroll);
+    }
+  },
+
+  methods: {
+    onScroll() {
+      const navbar = document.querySelector('.navbar');
+
+      if (window.scrollY > 0) {
+        navbar.classList.add('is-fixed-top');
+      } else {
+        navbar.classList.remove('is-fixed-top');
+      }
+    },
   },
 };
 </script>

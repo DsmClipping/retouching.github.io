@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <div class="monika" />
     <audio id="monika-music">
       <source src="@/assets/musics/monika-theme.webm" type="video/webm">
@@ -29,17 +29,17 @@
           outlined
           href="#about"
         >
-          En savoir plus
+          {{ $t('home.getMore') }}
         </b-button>
 
         <b-button
-          class="about-button"
-          icon-left="arrow-up"
-          type="is-danger"
+          id="download-cv"
+          icon-left="download-outline"
+          type="is-info"
           outlined
-          @click="rickroll"
+          @click="downloadCv"
         >
-          En savoir moins
+          {{ $t('home.getCV') }}
         </b-button>
       </div>
     </HeroBlock>
@@ -67,10 +67,64 @@
         </div>
       </div>
     </section>
-  </main>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <h1 class="title">
+          {{ $t('home.skills.title') }}
+        </h1>
+        <h2 class="subtitle">
+          {{ $t('home.skills.subtitle') }}
+        </h2>
+
+        <div class="tabs is-centered is-primary">
+          <ul>
+            <!--li class="is-active">
+              <a id="all" @click="onSkillClick">Tous</a>
+            </li-->
+            <li class="is-active">
+              <a id="langs" @click="onSkillClick">Langages</a>
+            </li>
+            <li>
+              <a id="frameworks" @click="onSkillClick">Frameworks</a>
+            </li>
+            <li>
+              <a id="techs" @click="onSkillClick">Technologies</a>
+            </li>
+            <li>
+              <a id="softs" @click="onSkillClick">Logiciels</a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="columns is-centered is-multiline">
+          <div
+            v-for="(skill) of skills"
+            :key="skill.name"
+            :data-skill-group="skill.group"
+            class="column is-3"
+          >
+            <div class="card has-ribbon is-small">
+              <div class="card-content">
+                <div class="content">
+                  <div class="ribbon is-small is-primary">
+                    {{ $t(`home.skills.type.${skill.group}`) }}
+                  </div>
+                  <img alt="skill" :src="skill.image">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </template>
 
 <script>
+/* eslint-disable global-require */
+/* eslint-disable import/no-unresolved */
+
 import HeroBlock from '../components/HeroBlock.vue';
 
 export default {
@@ -83,6 +137,116 @@ export default {
   data() {
     return {
       currentWord: '',
+      skills: [
+        {
+          image: require('~/assets/images/skills/html-css.webp'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/cpp.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/java.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/js.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/python.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/sql.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/php.png'),
+          group: 'langs',
+        },
+        {
+          image: require('~/assets/images/skills/vuejs.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/nuxtjs.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/qt.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/symfony.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/bulma.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/bootstrap.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/expressjs.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/flask.png'),
+          group: 'frameworks',
+        },
+        {
+          image: require('~/assets/images/skills/mysql.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/mariadb.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/postgres.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/mongodb.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/rethinkdb.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/redis.png'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/docker.webp'),
+          group: 'techs',
+        },
+        {
+          image: require('~/assets/images/skills/vscode.png'),
+          group: 'softs',
+        },
+        {
+          image: require('~/assets/images/skills/intellij.png'),
+          group: 'softs',
+        },
+        {
+          image: require('~/assets/images/skills/dbbrowser.png'),
+          group: 'softs',
+        },
+        {
+          image: require('~/assets/images/skills/dbeaver.png'),
+          group: 'softs',
+        },
+        {
+          image: require('~/assets/images/skills/git.png'),
+          group: 'softs',
+        },
+      ],
     };
   },
 
@@ -93,16 +257,57 @@ export default {
   },
 
   mounted() {
-    if (document) document.addEventListener('keydown', this.onKeydown);
+    if (document) {
+      this.skillShow('langs');
+      document.addEventListener('scroll', this.onScroll);
+    }
   },
 
   destroyed() {
-    if (document) document.removeEventListener('keydown', this.onKeydown);
+    if (document) {
+      document.removeEventListener('scroll', this.onScroll);
+    }
   },
 
   methods: {
-    rickroll() {
-      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&autoplay=1&t=0';
+    skillShow(skillActiveId) {
+      document.querySelectorAll('#skills .tabs ul li a').forEach((elem) => {
+        if (elem.id === skillActiveId) {
+          elem.parentNode.classList.add('is-active');
+        } else {
+          elem.parentNode.classList.remove('is-active');
+        }
+      });
+
+      document.querySelectorAll('#skills .columns .column').forEach((elem) => {
+        if (elem.dataset.skillGroup === skillActiveId || skillActiveId === 'all') {
+          elem.classList.remove('is-hidden');
+        } else {
+          elem.classList.add('is-hidden');
+        }
+      });
+
+      document.querySelector('#skills').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    },
+
+    onSkillClick(event) {
+      const currentTab = event.target;
+      this.skillShow(currentTab.id);
+    },
+
+    downloadCv() {
+      document.querySelector('#download-cv').blur();
+
+      this.$buefy.toast.open({
+        message: `
+        <span class="icon is-small"><i class="mdi mdi-close"></i></span>
+        <span>Mon CV n'est pas disponible pour le moment</span>
+        `,
+        type: 'is-danger',
+      });
     },
 
     onKeydown(event) {
@@ -184,11 +389,16 @@ export default {
     }
   }
 
-  #about {
+  #about, #skills {
     text-align: center;
 
     h2.subtitle {
       color: $black-ter;
+    }
+
+    img {
+      height: auto;
+      width: 80px;
     }
   }
 

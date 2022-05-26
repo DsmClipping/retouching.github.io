@@ -267,7 +267,7 @@ export default {
     if (document) {
       this.skillShow('langs', false);
       document.addEventListener('scroll', this.onScroll);
-      document.removeEventListener('keydown', this.onKeydown);
+      document.addEventListener('keydown', this.onKeydown);
     }
   },
 

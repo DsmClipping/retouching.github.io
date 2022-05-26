@@ -1,4 +1,11 @@
 {
+  "footer": {
+    "text": "Développé par moi-même",
+    "egg": "Tapez monika n'importe ou sur la page",
+    "copied": "Texte copié",
+    "copyFailed": "Impossible de copier le texte"
+  },
+
   "home": {
     "title": "Accueil",
     "getCV": "Télécharger mon CV",

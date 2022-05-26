@@ -120,6 +120,7 @@
         </div>
       </div>
     </section>
+    <FooterBlock />
   </div>
 </template>
 
@@ -128,12 +129,14 @@
 /* eslint-disable import/no-unresolved */
 
 import HeroBlock from '../components/HeroBlock.vue';
+import FooterBlock from '../components/FooterBlock.vue';
 
 export default {
   name: 'IndexPage',
 
   components: {
     HeroBlock,
+    FooterBlock,
   },
 
   data() {
@@ -309,21 +312,6 @@ export default {
 
 <style lang="scss">
   @import '@/assets/scss/main.scss';
-
-  .monika {
-    opacity: 0;
-    z-index: -1;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('@/assets/images/monika.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-
   .card {
     height: 100%;
     display:flex;
@@ -367,8 +355,17 @@ export default {
   }
 
   .about-button {
+    @keyframes SlidedownSmallIcons {
+      0% {
+        transform: translateY(-15%);
+      }
+      100% {
+        transform: translateY(15%);
+      }
+    }
+
     .icon {
-      animation-name: slidedown;
+      animation-name: SlidedownSmallIcons;
       animation-duration: 0.6s;
       animation-direction: alternate;
       animation-iteration-count: infinite;
@@ -405,15 +402,6 @@ export default {
     h2 {
       @extend .subtitle;
       color: $white;
-    }
-  }
-
-  @keyframes slidedown {
-    0% {
-      transform: translateY(-15%);
-    }
-    100% {
-      transform: translateY(15%);
     }
   }
 </style>

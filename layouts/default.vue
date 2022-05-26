@@ -54,8 +54,6 @@ export default {
     },
 
     onKeydown(event) {
-      console.log(event.key, this.currentWord);
-
       const WORD_KEY = 'MONIKA'.toLowerCase();
       const pressedKey = event.key;
 

@@ -1,0 +1,10 @@
+{
+  "name": "Sylvain | Portfolio",
+  "short_name": "retouching",
+  "icons": [],
+  "start_url": "/?standalone=true",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff6b81",
+  "lang": "fr"
+}

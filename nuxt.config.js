@@ -58,6 +58,21 @@ export default {
     langDir: '~/locales/',
   },
 
+  pwa: {
+    meta: {
+      description: 'Sylvain | Portfolio',
+      theme_color: '#ff6b81',
+      ogType: 'website',
+      ogSiteName: 'Sylvain | Portfolio',
+      ogUrl: 'https://retouching.github.io/',
+      ogDescription: 'C\'est mon portfolio, rien de plus.',
+    },
+    manifest: {
+      name: 'Sylvain | Portfolio',
+      lang: 'fr',
+    },
+  },
+
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/eslint
@@ -73,6 +88,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
+    '@nuxtjs/pwa',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

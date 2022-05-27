@@ -1,6 +1,6 @@
 {
   "footer": {
-    "text": "Développé par moi-même",
+    "text": "Développé par moi-même (à l'aide de Buefy, Vue.js et Nuxt.js)",
     "egg": "Tapez monika n'importe ou sur la page",
     "copied": "Texte copié",
     "copyFailed": "Impossible de copier le texte"

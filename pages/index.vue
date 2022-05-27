@@ -48,10 +48,10 @@
           {{ $t('home.about.subtitle') }}
         </h2>
 
-        <div class="columns is-centered">
-          <div v-for="(text, index) of $t('home.about.cards')" :key="text" class="column is-3">
-            <div class="card">
-              <img v-if="index === 2" class="egg" src="@/assets/images/egg.png">
+        <div class="columns is-centered is-multiline">
+          <div v-for="(text) of $t('home.about.cards')" :key="text" class="column is-4">
+            <img class="egg" src="@/assets/images/egg.png">
+            <div class="card" @mouseenter="anyaPop">
               <div class="card-content">
                 <div class="content">
                   {{
@@ -141,6 +141,7 @@ export default {
 
   data() {
     return {
+      anyaLocked: false,
       skills: [
         {
           image: require('~/assets/images/skills/html-css.webp'),
@@ -261,10 +262,25 @@ export default {
   },
 
   mounted() {
-    this.skillShow('langs', false);
+    if (document) {
+      this.skillShow('langs', false);
+    }
   },
 
   methods: {
+    anyaPop(event) {
+      if (this.anyaLocked) return;
+
+      const parent = event.target.parentElement;
+      const eggChild = Array.from(parent.childNodes)
+        .find((child) => child.classList && child.classList.contains('egg'));
+
+      if (eggChild && Math.random() > 0.8) {
+        eggChild.classList.add('is-active');
+        this.anyaLocked = true;
+      }
+    },
+
     skillShow(skillActiveId, scroll = true) {
       document.querySelectorAll('#skills .tabs ul li a').forEach((elem) => {
         if (elem.id === skillActiveId) {
@@ -312,18 +328,11 @@ export default {
 
 <style lang="scss">
   @import '@/assets/scss/main.scss';
+
   .card {
     height: 100%;
     display:flex;
     flex-direction: column;
-
-    .egg {
-      z-index: -1;
-      position: absolute;
-      bottom: 0;
-      height: 100%;
-      transition: 0.6s;
-    }
 
     .card-content {
       z-index: 1;
@@ -333,24 +342,53 @@ export default {
     }
   }
 
-  .card:hover {
-    .egg {
-      transform: translateY(-100%);
-    }
-  }
-
-  #about, #skills {
+  #skills {
     text-align: center;
 
     h2.subtitle {
       color: $black-ter;
     }
-  }
 
-  #skills {
     img {
       height: auto;
       width: 80px;
+    }
+  }
+
+  #about {
+    .column, .card {
+      z-index: 20;
+    }
+
+    .egg {
+      z-index: 10;
+      position: absolute;
+      transition: 0.6s;
+      height: 50%;
+      text-align: left;
+      padding-bottom: 0.75rem;
+
+      @media screen and (max-width: $tablet) {
+          visibility: hidden;
+      }
+    }
+
+    .egg.is-active {
+      transform: translateY(-100%);
+      padding-bottom: 0rem;
+    }
+
+    #about .card-content {
+      text-align: center;
+    }
+
+    h2.subtitle {
+      color: $black-ter;
+      text-align: center;
+    }
+
+    h1.title {
+      text-align: center;
     }
   }
 

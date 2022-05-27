@@ -2,9 +2,9 @@
 @import "@/assets/scss/fonts.scss";
 
 html, body {
-  z-index: -1;
   overflow: auto !important;
   scroll-behavior: smooth !important;
+  background-color: $light;
 }
 
 a, button, input, select, textarea {

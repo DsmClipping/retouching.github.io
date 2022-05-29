@@ -63,7 +63,7 @@ export default {
       description: 'Sylvain | Portfolio',
       theme_color: '#ff6b81',
       ogType: 'website',
-      ogSiteName: 'Sylvain | Portfolio',
+      ogSiteName: 'retouching.github.io',
       ogUrl: 'https://retouching.github.io/',
       ogDescription: 'C\'est mon portfolio, rien de plus.',
     },

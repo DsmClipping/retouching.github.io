@@ -4,7 +4,7 @@
 html, body {
   overflow: auto !important;
   scroll-behavior: smooth !important;
-  background-color: $light;
+  background-color: $light !important;
 }
 
 a, button, input, select, textarea {

@@ -36,7 +36,7 @@
           />
         </a>
 
-        <a class="has-text-link" href="https://anilist.co/user/arch/">
+        <a class="has-text-link" target="_blank" href="https://anilist.co/user/arch/">
           <i class="icon">
             <svg viewBox="0 0 360 273" xmlns="http://www.w3.org/2000/svg">
               <g>
@@ -134,7 +134,7 @@ export default {
     margin-bottom: 0.5rem;
   }
 
-  p.spoiler, p.spoiler::selection, p.spoiler::-moz-selection {
+  p.spoiler {
     font-size: 0.4rem;
     background-color: $grey-darker !important;
     border-radius: 4px !important;
@@ -148,10 +148,14 @@ export default {
     cursor: pointer;
   }
 
-  p.spoiler.is-active, p.spoiler.is-active::selection, p.spoiler.is-active::-moz-selection {
+  p.spoiler.is-active {
     color: $grey-lighter !important;
     background-color: $black-bis !important;
     border-radius: 4px !important;
     padding: 0.1rem 0.25rem;
+  }
+
+  p.spoiler::selection {
+    background-color: $black-bis !important;
   }
 </style>

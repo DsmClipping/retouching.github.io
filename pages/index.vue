@@ -204,6 +204,10 @@ export default {
           group: 'frameworks',
         },
         {
+          image: require('~/assets/images/skills/spring-boot.png'),
+          group: 'frameworks',
+        },
+        {
           image: require('~/assets/images/skills/mysql.png'),
           group: 'techs',
         },
